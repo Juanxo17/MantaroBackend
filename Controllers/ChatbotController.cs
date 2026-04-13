@@ -30,6 +30,8 @@ public class ChatbotController : ControllerBase
         string respuestaBot = "";
         string urlAccion = "";
         string textoAccion = "";
+        string urlSecundaria = "";
+        string textoSecundario = "";
 
         switch (sesion.EstadoActual)
         {
@@ -251,11 +253,13 @@ public class ChatbotController : ControllerBase
                     : $"\n🍽️ Para consumir en: {sesion.PedidoActual.NumeroMesa}";
                 
                 // Formateamos para que funcione como enlace
-                string linkWa = $"https://wa.me/573175474135?text={Uri.EscapeDataString(textoWa)}";
+                string linkWa = $"https://wa.me/573166677871?text={Uri.EscapeDataString(textoWa)}";
                 
-                respuestaBot = $"🛒 *RESUMEN FINAL*\nTotal: ${total}\nEntrega en: {sesion.PedidoActual.NumeroMesa}\n\n¡Casi listo! Revisa tu pedido y toca el botón abajo para enviarlo a la cocina.\n\n*(Escribe 'hola' si deseas hacer un nuevo pedido)*";
+                respuestaBot = $"🛒 *RESUMEN FINAL*\nTotal: ${total}\nEntrega en: {sesion.PedidoActual.NumeroMesa}\n\n¡Casi listo! Revisa tu pedido y toca el botón abajo para enviarlo a la cocina.\n\nTambién te invitamos a que califiques tu experiencia en Mantaro en Google Maps. ¡Cada reseña nos ayuda a crecer!\n\n*(Escribe 'hola' si deseas hacer un nuevo pedido)*";
                 urlAccion = linkWa;
-                textoAccion = "📲 Enviar por WhatsApp";
+                textoAccion = "📲 Pedir por WhatsApp";
+                urlSecundaria = "https://www.google.com/search?client=opera-gx&hs=MGp&sca_esv=2f8518efab07fb93&sxsrf=ANbL-n6SXtPRg7cgboe5k_UisN6HzFrquQ:1776118626721&q=caf%C3%A9+mantaro+ginebra&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOYN3wpy3qjdvT64QxSoAdeCNqLZTB9tNPlJIElSpc_7gkdPm7GL9heEH5USLiImEE0yIpxXXsMKgJGsaGDw07BVtFeK9-QTB7GH8TclXLUYks6j6aw%3D%3D&sa=X&ved=2ahUKEwivisy-7euTAxW0QzABHaESHD4QrrQLegQIGhAA&biw=1324&bih=611&dpr=1#";
+                textoSecundario = "⭐ Calificanos en Google Maps";
                 
                 // Limpiamos la memoria para que quede libre
                 sesion.PedidoActual.Items.Clear();
@@ -275,7 +279,9 @@ public class ChatbotController : ControllerBase
         return Ok(new ChatResponse { 
             Respuesta = respuestaBot, 
             UrlAccion = urlAccion, 
-            TextoAccion = textoAccion 
+            TextoAccion = textoAccion,
+            UrlSecundaria = urlSecundaria,
+            TextoSecundario = textoSecundario
         });
     }
 }
@@ -291,4 +297,6 @@ public class ChatResponse
     public string Respuesta { get; set; } = string.Empty;
     public string UrlAccion { get; set; } = string.Empty;
     public string TextoAccion { get; set; } = string.Empty;
+    public string UrlSecundaria { get; set; } = string.Empty;
+    public string TextoSecundario { get; set; } = string.Empty;
 }
