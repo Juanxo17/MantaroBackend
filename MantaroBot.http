@@ -1,0 +1,6 @@
+@MantaroBot_HostAddress = http://localhost:5293
+
+GET {{MantaroBot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
