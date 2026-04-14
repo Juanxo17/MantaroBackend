@@ -55,7 +55,9 @@ public class ChatbotController : ControllerBase
                 }
                 else if (mensajeUsuario == "2")
                 {
-                    respuestaBot = "En la versión final, aquí redigiriremos a un asesor. Escribe 'hola' para volver al inicio.";
+                    respuestaBot = "¡Claro que sí! Toca el botón de abajo para que uno de nuestros asesores te atienda por WhatsApp en este momento.\n\n*(Escribe '1' o 'hola' si deseas volver a ver el menú)*";
+                    urlAccion = "https://wa.me/573166677871?text=Hola,%20quisiera%20hablar%20con%20un%20asesor";
+                    textoAccion = "💬 Hablar con un asesor por WhatsApp";
                     sesion.EstadoActual = "INICIO";
                 }
                 else
