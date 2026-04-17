@@ -1,31 +1,17 @@
-using MantaroBot.Services;
+﻿using MantaroBot.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Configurar CORS para permitir que React (puerto 5173 o URL de Netlify) hable con C#
+// 1. Configurar CORS para permitir que React (puerto 5173 o URL de Netlify de cualquier rama) hable con C#
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirReact", policy =>
     {
-        var frontendUrl = builder.Configuration["FRONTEND_URL"];
-        
-        policy.WithOrigins("http://localhost:5173", "http://127.0.0.1:5173", "https://mantaroginebra.netlify.app")
+        // Esto permite cualquier origen (incluyendo previews de Netlify temporales)
+        policy.SetIsOriginAllowed(origin => true)
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials(); // Importante por si a futuro hay cookies/sesiones complejas
-
-        // Si existe la variable FRONTEND_URL en Render, la añadimos a los orígenes permitidos
-        if (!string.IsNullOrEmpty(frontendUrl))
-        {
-            policy.WithOrigins(frontendUrl)
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        }
-        else
-        {
-            // Opcional para MVP: Permitir cualquiera si no has configurado la variable
-            policy.SetIsOriginAllowed(origin => true); 
-        }
+              .AllowCredentials(); 
     });
 });
 
